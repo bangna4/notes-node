@@ -1,10 +1,23 @@
-console.log('Starting notres.js');
+console.log('Starting notes.js');
 
-module.exports.addNote = () =>  {
-	console.log('addNote');
+
+
+var addNote = (title, body) =>  {
+	console.log('adding more', title, body);
 	return 'new Note';
 };
 
+
+var getAll= () => {
+	console.log('getting all notes');
+}
+
+
+
+module.exports = {
+	addNote,
+	getAll
+}
 
 module.exports.add = (a,b) => {
 	return a+b;	
