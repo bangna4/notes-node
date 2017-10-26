@@ -7,7 +7,7 @@ const yargs = require('yargs');
 
 const notes = require('./notes.js');
 
-console.log(res);
+//console.log(res);
 console.log("result", notes.add(9, -2));
 console.log(process.argv);
 
