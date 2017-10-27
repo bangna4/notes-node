@@ -1,44 +1,36 @@
-console.log('Starting app');
-
-const fs =  require('fs');
-const os = require('os');
+const fs = require('fs');
 const _ = require('lodash');
 const yargs = require('yargs');
 
 const notes = require('./notes.js');
 
-//console.log(res);
-console.log("result", notes.add(9, -2));
-console.log(process.argv);
-
-var command = process.argv[2];
 const argv = yargs.argv;
+var command = argv._[0];
 
-console.log('command', command);
-console.log('process', process.argv);
-console.log('Yargs', argv);
-
-if(command === 'add')
-{
-	console.log('adding new note');
-	notes.addNote(argv.title, argv.body);
+if (command === 'add') {
+  var note = notes.addNote(argv.title, argv.body);
+  if (note) {
+    console.log('Note created');
+    notes.logNote(note);
+  } else {
+    console.log('Note title taken');
+  }
+} else if (command === 'list') {
+  var allNotes = notes.getAll();
+  console.log(`Printing ${allNotes.length} note(s).`);
+  allNotes.forEach((note) => notes.logNote(note));
+} else if (command === 'read') {
+  var note = notes.getNote(argv.title);
+  if (note) {
+    console.log('Note found');
+    notes.logNote(note);
+  } else {
+    console.log('Note not found');
+  }
+} else if (command === 'remove') {
+  var noteRemoved = notes.removeNote(argv.title);
+  var message = noteRemoved ? 'Note was removed' : 'Note not found';
+  console.log(message);
+} else {
+  console.log('Command not recognized');
 }
-else if (command === 'list')
-{
-	console.log('adding new list');
-	notes.getAll();
-}
-else if (command == 'read')
-{
-   console.log("reading note");
-}
-else if( command == 'remove')
-{
-	console.log('removeing note');
-}
-else
-{
-	console.log('command not reconginzed');
-}
-
-//fs.appendFile('greeting.txt', `hellow world ${user.username}`);
